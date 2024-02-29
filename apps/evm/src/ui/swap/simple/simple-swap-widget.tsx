@@ -14,7 +14,7 @@ import { SwapMaintenanceMessage } from './swap-maintenance-message'
 
 export const SimpleSwapWidget = () => {
   return (
-    <div className="lg:sticky lg:top-14 flex flex-col gap-4 max-w-lg m-auto rounded-lg p-4 shadow-lg shadow-blue-500/20">
+    <div className="xl:sticky xl:top-1/2 xl:translate-y-[-50%] flex flex-col gap-4 max-w-lg m-auto rounded-lg p-4 shadow-lg shadow-blue-500/20">
       <SimpleSwapHeader />
       <div className="flex items-center justify-between">
         <SwapModeButtons />

@@ -155,7 +155,6 @@ export class Router {
         LiquidityProviders.Trident,
       ],
     )
-    console.log("🚀 ~ Router ~ preferrableRoute:", preferrableRoute)
     // If the route is successful and the price impact is less than maxPriceImpact, then return the route
     if (
       preferrableRoute.status === RouteStatus.Success &&

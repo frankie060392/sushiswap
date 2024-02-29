@@ -4,12 +4,16 @@ import {
 } from 'react'
 import { config } from 'src/config'
 import { widget } from 'public/charting_library/charting_library.min'
-import { datafeed } from 'src/lib/datafeed'
-import { createWebsocket } from 'src/lib/socket'
 import { useIsMounted } from '@sushiswap/hooks'
 import { useDerivedStateSimpleSwap } from './derivedstate-simple-swap-provider'
+import { useSocket } from 'src/lib/hooks/useSocket'
+import { useDataFeed } from 'src/lib/hooks/useDataFeed'
+import { getCandle } from 'src/lib/socket'
+import { RESOLUTION } from 'src/lib/constants'
 export const SimpleSwapChartContainer: FC = ()=> {
   const isMounted =  useIsMounted()
+  const { datafeed } = useDataFeed()
+  const { getCandle } = useSocket()
   const {
     state: { token0, token1 },
   } = useDerivedStateSimpleSwap()
@@ -91,6 +95,8 @@ export const SimpleSwapChartContainer: FC = ()=> {
     // custom_css_url: 'css/custom.css'
   }
 
+    const { createWebsocket } = useSocket()
+
     const initChart = () => {
     const resolution = localStorage.getItem(config.RESOLUTION_STOGRATE)
     if (resolution) {
@@ -102,6 +108,9 @@ export const SimpleSwapChartContainer: FC = ()=> {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     chartWidget = new widget({ ...widgetOptions, symbol })
     chartWidget.onChartReady(() => {
+      const _resolution = resolution ? resolution : '60'
+      const _RESOLUTION: any = RESOLUTION
+      getCandle(_RESOLUTION[_resolution], token)
       // const _format = `1${'0'.repeat(props.pair?.quoteUnit)}`
       // chartWidget.amarket/history-candle?pplyOverrides({ 'mainSeriesProperties.minTick': _format })
       //ready

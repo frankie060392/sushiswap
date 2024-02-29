@@ -1,5 +1,5 @@
 import { Card, Loader, DataTable } from "@sushiswap/ui";
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { GetTransactionsArgs } from '@sushiswap/client'
 import {
@@ -15,12 +15,14 @@ import { useDerivedStateSimpleSwap } from "./derivedstate-simple-swap-provider";
 import { useTransactionsInfinite } from "@sushiswap/client/hooks";
 import { useSWRConfig } from "swr";
 import { TableState } from "@tanstack/react-table";
+import { useSocket } from "src/lib/hooks/useSocket";
 
 export const  SimpleSwapTransaction: FC = () => {
 
   const {
     state: { token0, token1 },
   } = useDerivedStateSimpleSwap()
+  const { subcribeTransaction } = useSocket()
   const args = useMemo<GetTransactionsArgs>(() => {
     return {
       token0: token0?.wrapped.address || '',
@@ -30,6 +32,14 @@ export const  SimpleSwapTransaction: FC = () => {
     }
   }, [token0, token1])
 
+  useEffect(() => {
+    if(token0?.wrapped.address && token1?.wrapped?.address) {
+      setTimeout(() => {
+        subcribeTransaction(`${token0?.wrapped.address.toLocaleLowerCase()}_${token1?.wrapped?.address.toLocaleLowerCase()}`)
+      }, 1000)
+    }
+  }, [subcribeTransaction, token0, token1])
+
   const {
     data: transactions,
     isValidating,
@@ -37,23 +47,20 @@ export const  SimpleSwapTransaction: FC = () => {
     size,
     setSize,
   } = useTransactionsInfinite({ args, shouldFetch: true, swrConfig: useSWRConfig() })
-  const data = useMemo(() => {
-    let list: any = []
-    transactions && transactions.forEach(item => {
-      list = list.concat(...item.data)
 
-    })
-    return list
-  }, [transactions])
+
+  const data = useMemo(() => 
+  transactions ?   [].concat(...transactions.map(page => page?.data)) : []
+  , [transactions])
 
   const state: Partial<TableState> = useMemo(() => {
     return {
       pagination: {
         pageIndex: 0,
-        pageSize: data?.length,
+        pageSize: 1000,
       },
     }
-  }, [data?.length])
+  }, [])
   
   const isLoadmore = useMemo(() => {
     if(args.size && data.length < (size - 1) * args.size) {
@@ -86,7 +93,7 @@ export const  SimpleSwapTransaction: FC = () => {
       <Card>
         <DataTable
           state={state}
-          loading={isValidating}
+          loading={!data && isValidating}
           columns={COLUMNS}
           data={data}
         />

@@ -6,14 +6,14 @@ const tailwindConfig = {
   darkMode: 'class',
   presets: [sharedConfig],
   theme: {
-    screens: {
-      vs: '425px',
-      sm: '576px',
-      md: '768px',
-      lg: '992px',
-      xl: '1200px',
-      xxl: '1440px',
-    },
+    // screens: {
+    //   vs: '425px',
+    //   sm: '576px',
+    //   md: '768px',
+    //   lg: '992px',
+    //   xl: '1200px',
+    //   xxl: '1440px',
+    // },
     extend: {
       display: ['group-hover'],
       visibility: ['group-hover'],

@@ -15,6 +15,11 @@ const nextConfig = {
   transpilePackages: ['@sushiswap/wagmi'],
   async redirects() {
     return [
+          {
+            source: '/',
+            destination: '/swap',
+            permanent: true,
+          },
       // {
       //   source: '/discord{/}?',
       //   permanent: true,

@@ -3,7 +3,7 @@
 import { useIsSmScreen } from '@sushiswap/hooks'
 import { Separator } from '@sushiswap/ui'
 import { MotionConfig } from 'framer-motion'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import {
   BuildFuture,
@@ -14,9 +14,12 @@ import {
   // Stats,
   Story,
 } from './components'
+ 
 
 export default function LandingPage() {
   const isSmallScreen = useIsSmScreen()
+
+
   return (
     <MotionConfig reducedMotion={isSmallScreen ? 'always' : 'user'}>
       <article className="w-full my-20">

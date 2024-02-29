@@ -16,4 +16,4 @@ export const TOKENS_API =
 
 export const SWAP_TRANSACTION_API =
   process.env['NEXT_PUBLIC_SWAP_TRANSACTION'] ||
-  'http://192.168.1.182:3333/api/v1'
+  'https://txs.u2w.io/api/v1'

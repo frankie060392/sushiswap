@@ -1,18 +1,19 @@
-import { ERC20Token, Currency } from '@pancakeswap/sdk'
-import { ChainId, getLlamaChainName } from '@pancakeswap/chains'
+// import { ERC20Token, Currency } from '@pancakeswap/sdk'
+// import { ChainId, getLlamaChainName } from '@pancakeswap/chains'
 // import { CAKE } from '@pancakeswap/tokens'
 // import { tickToPrice } from '@pancakeswap/v3-sdk'
 import { Address, PublicClient, formatUnits } from 'viem'
 import BN from 'bignumber.js'
-// import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
+import { BIG_ZERO } from 'sushi/config'
 import chunk from 'lodash/chunk'
 
 import { DEFAULT_COMMON_PRICE, PriceHelper } from '../constants/common'
 import { ComputedFarmConfigV3, FarmV3Data, FarmV3DataWithPrice } from './types'
 import { getFarmApr } from './apr'
 import { FarmV3SupportedChainId, supportedChainIdV3 } from './const'
-import { WNATIVE } from 'sushi/currency'
-import { tickToPrice } from '@sushiswap/v3-sdk'
+import { Currency, WNATIVE } from 'sushi/currency'
+import { ERC20Token, tickToPrice } from '@sushiswap/v3-sdk'
+import { ChainId, getLlamaChainName } from 'sushi/chain'
 
 const chainlinkAbi = [
   {

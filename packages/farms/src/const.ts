@@ -3,9 +3,9 @@ import uniq from 'lodash/uniq'
 
 export const supportedChainIdV2 = [ChainId.ETHEREUM] as const
 export const supportedChainIdV3 = [
-  ChainId.BSC,
-  ChainId.BSC_TESTNET,
-  ChainId.ETHEREUM,
+  // ChainId.BSC,
+  // ChainId.BSC_TESTNET,
+  // ChainId.ETHEREUM,
   ChainId.U2U_NEBULAS
 ] as const
 export const supportedChainId = uniq([...supportedChainIdV2, ...supportedChainIdV3])
@@ -25,9 +25,9 @@ export const masterChefAddresses = {
 } as const
 
 export const masterChefV3Addresses = {
-  [ChainId.ETHEREUM]: '0x556B9306565093C855AEA9AE92A594704c2Cd59e',
-  [ChainId.BSC]: '0x556B9306565093C855AEA9AE92A594704c2Cd59e',
-  [ChainId.BSC_TESTNET]: '0x4c650FB471fe4e0f476fD3437C3411B1122c4e3B',
+  // [ChainId.ETHEREUM]: '0x556B9306565093C855AEA9AE92A594704c2Cd59e',
+  // [ChainId.BSC]: '0x556B9306565093C855AEA9AE92A594704c2Cd59e',
+  // [ChainId.BSC_TESTNET]: '0x4c650FB471fe4e0f476fD3437C3411B1122c4e3B',
   [ChainId.U2U_NEBULAS]: '0x8fC9F43677e6EbFCaC798eede292073c3319D6D9',
 } as const satisfies Record<FarmV3SupportedChainId, string>
 

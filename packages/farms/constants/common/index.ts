@@ -4,7 +4,7 @@ import { ERC20Token } from '@sushiswap/v3-sdk'
 import type { FarmV3SupportedChainId } from '../../src'
 import type { CommonPrice } from '../../src/fetchFarmsV3'
 
-export const CAKE_BNB_LP_MAINNET = '0x0eD7e52944161450477ee417DE9Cd3a859b14fD0'
+export const U2U_CAKE_LP_MAINNET = '0x66a892B9de9e816AaE61075FF1C98606d3F8E5A4'
 
 export type PriceHelper = {
   chain: string
@@ -29,7 +29,7 @@ export const priceHelperTokens = {
 
 // for testing purposes
 export const DEFAULT_COMMON_PRICE: Record<FarmV3SupportedChainId, CommonPrice> = {
-  // [ChainId.ETHEREUM]: {},
+  [ChainId.U2U_NEBULAS]: {},
   // [ChainId.GOERLI]: {
   //   [goerliTestnetTokens.mockA.address]: '10',
   // },

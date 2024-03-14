@@ -2,21 +2,21 @@
 /* eslint-disable no-restricted-syntax */
 import path from 'path'
 import fs from 'fs'
-import ethFarms from '../constants/eth'
-// import goerliFarms from '../constants/goerli'
-import bscTestnetFarms from '../constants/bscTestnet'
-import bscFarms from '../constants/bsc'
+import { farmsV3 } from '../constants/u2uNebulas'
+// // import goerliFarms from '../constants/goerli'
+// import bscTestnetFarms from '../constants/bscTestnet'
+// import bscFarms from '../constants/bsc'
 
-import lpHelpers1 from '../constants/priceHelperLps/1'
+import lpHelpers2484 from '../constants/priceHelperLps/2484'
 // import lpHelpers5 from '../constants/priceHelperLps/5'
-import lpHelpers97 from '../constants/priceHelperLps/97'
-import lpHelpers56 from '../constants/priceHelperLps/56'
+// import lpHelpers97 from '../constants/priceHelperLps/97'
+// import lpHelpers56 from '../constants/priceHelperLps/56'
 
 const chains = [
-  [1, ethFarms, lpHelpers1],
+  [2484, farmsV3, lpHelpers2484],
   // [5, goerliFarms, lpHelpers5],
-  [56, bscFarms, lpHelpers56],
-  [97, bscTestnetFarms, lpHelpers97],
+  // [56, bscFarms, lpHelpers56],
+  // [97, bscTestnetFarms, lpHelpers97],
 ]
 
 export const saveList = async () => {

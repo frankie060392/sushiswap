@@ -1,4 +1,4 @@
-import { ChainId } from './constants'
+import { ChainId, defiLlamaChainNames } from './constants'
 import raw from './generated'
 
 const additional = [] as const
@@ -206,6 +206,10 @@ export const chainShortName = Object.fromEntries(
 export const chainName = Object.fromEntries(
   RAW.map((data): [number, string] => [data.chainId, Chain.fromRaw(data).name]),
 )
+
+export function getLlamaChainName(chainId: ChainId) {
+  return defiLlamaChainNames[chainId]
+}
 
 export * from './constants'
 

@@ -173,7 +173,8 @@
     "typescript": "5.2.2",
     "viem": "1.21.4",
     "vitest": "0.34.6",
-    "zod": "3.21.4"
+    "zod": "3.21.4",
+    "bignumber.js": "^9.0.0"
   },
   "peerDependencies": {
     "@sushiswap/tines": "*",

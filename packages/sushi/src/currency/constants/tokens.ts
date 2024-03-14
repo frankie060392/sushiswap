@@ -60,11 +60,17 @@ import {
   rETH2_ADDRESS,
   renBTC_ADDRESS,
   sETH2_ADDRESS,
+  CAKE_ADDRESS
 } from './token-addresses.js'
 
 export const AMPL = addressMapToTokenMap(
   { decimals: 9, symbol: 'AMPL', name: 'Ampleforth' },
   AMPL_ADDRESS,
+)
+
+export const CAKE = addressMapToTokenMap(
+  { decimals: 9, symbol: 'AMPL', name: 'Ampleforth' },
+  CAKE_ADDRESS
 )
 
 export const MANA = addressMapToTokenMap(

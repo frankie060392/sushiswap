@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import { ChainId } from 'sushi/chain'
-import { AprMap, FarmSupportedChainId } from '@pancakeswap/farms'
+import { AprMap, FarmSupportedChainId } from '@sushiswap/farms'
 import BigNumber from 'bignumber.js'
 import dayjs from 'dayjs'
 import { GraphQLClient, gql } from 'graphql-request'
@@ -66,7 +66,7 @@ interface FarmsResponse {
   farmsOneWeekAgo: SingleFarmResponse[]
 }
 
-const getAprsForFarmGroup = async (addresses: string[], blockWeekAgo: number, chainId: number): Promise<AprMap> => {
+const getAprsForFarmGroup = async (addresses: string[], blockWeekAgo: number, chainId: FarmSupportedChainId): Promise<AprMap> => {
   try {
     const { farmsAtLatestBlock, farmsOneWeekAgo } = await infoClientWithChain(chainId).request<FarmsResponse>(
       gql`
@@ -179,7 +179,7 @@ const getAprsForStableFarm = async (stableFarm: any): Promise<BigNumber> => {
 
 // ====
 
-export const updateLPsAPR = async (chainId: number, allFarms: any[]) => {
+export const updateLPsAPR = async (chainId: FarmSupportedChainId, allFarms: any[]) => {
   const { normalFarms, stableFarms }: SplitFarmResult = allFarms.reduce(splitNormalAndStableFarmsReducer, {
     normalFarms: [],
     stableFarms: [],

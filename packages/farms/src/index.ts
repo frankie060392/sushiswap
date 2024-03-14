@@ -1,6 +1,6 @@
 import { ChainId } from 'sushi/chain'
 import BigNumber from 'bignumber.js'
-import { PublicClient, formatEther } from 'viem'
+import { PublicClient } from 'viem'
 import {
   FarmSupportedChainId,
   // FarmV2SupportedChainId,
@@ -137,9 +137,9 @@ export function createFarmFetcherV3(provider: ({ chainId }: { chainId: number })
   return {
     fetchFarms,
     getCakeAprAndTVL,
-    isChainSupported: (chainId: number): chainId is FarmV3SupportedChainId => supportedChainIdV3.includes(chainId),
+    isChainSupported: (chainId: any): chainId is FarmV3SupportedChainId => supportedChainIdV3.includes(chainId),
     supportedChainId: supportedChainIdV3,
-    isTestnet: (chainId: number) => ![ChainId.BSC, ChainId.ETHEREUM].includes(chainId),
+    isTestnet: (chainId: any) => ![ChainId.BSC, ChainId.ETHEREUM].includes(chainId),
   }
 }
 

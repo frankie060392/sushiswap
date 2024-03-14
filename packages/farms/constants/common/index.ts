@@ -1,5 +1,5 @@
 import { ChainId } from 'sushi/chain'
-import { ERC20Token } from '@sushiswap/v3-sdk'
+import { Token } from 'sushi/currency'
 
 import type { FarmV3SupportedChainId } from '../../src'
 import type { CommonPrice } from '../../src/fetchFarmsV3'
@@ -8,22 +8,14 @@ export const CAKE_BNB_LP_MAINNET = '0x0eD7e52944161450477ee417DE9Cd3a859b14fD0'
 
 export type PriceHelper = {
   chain: string
-  list: ERC20Token[]
+  list: Token[]
 }
 
 export const priceHelperTokens = {
   [ChainId.U2U_NEBULAS]: {
     chain: 'nebulas',
     list: [],
-  },
-  [ChainId.ETHEREUM]: {
-    chain: 'ethereum',
-    list: [],
-  },
-  [ChainId.BSC]: {
-    chain: 'bsc',
-    list: [],
-  },
+  }
   
 } satisfies Record<number, PriceHelper>
 
@@ -51,4 +43,5 @@ export const DEFAULT_COMMON_PRICE: Record<FarmV3SupportedChainId, CommonPrice> =
   // [ChainId.BASE]: {},
   // [ChainId.OPBNB_TESTNET]: {},
   // [ChainId.OPBNB]: {},
+  [ChainId.U2U_NEBULAS]: {}
 }

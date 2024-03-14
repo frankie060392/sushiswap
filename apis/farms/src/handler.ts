@@ -1,14 +1,13 @@
 import BN from 'bignumber.js'
-import { formatUnits } from 'viem'
-import { SerializedFarmConfig, FarmWithPrices } from '@pancakeswap/farms'
+import { SerializedFarmConfig } from '@sushiswap/farms'
 import { ChainId } from 'sushi/chain'
 import { USDC, CAKE } from 'sushi/currency'
-import { farmFetcher } from './helper'
-import { FarmKV, FarmResult } from './kv'
+import { FarmKV } from './kv'
 import { updateLPsAPR } from './lpApr'
 import {  } from './provider'
 import { SushiSwapV3Pool, FeeAmount } from '@sushiswap/v3-sdk'
 import { Fraction } from 'sushi'
+import { FarmSupportedChainId } from '@sushiswap/farms'
 
 // copy from src/config, should merge them later
 const BSC_BLOCK_TIME = 3
@@ -17,7 +16,7 @@ const BLOCKS_PER_YEAR = (60 / BSC_BLOCK_TIME) * 60 * 24 * 365 // 10512000
 const FIXED_ZERO = new BN(0)
 const FIXED_100 = new BN(100)
 
-export const getFarmCakeRewardApr = (farm: FarmWithPrices, cakePriceBusd: BN, regularCakePerBlock: number) => {
+export const getFarmCakeRewardApr = (farm: any, cakePriceBusd: BN, regularCakePerBlock: number) => {
   let cakeRewardsAprAsString = '0'
   if (!cakePriceBusd) {
     return cakeRewardsAprAsString
@@ -66,7 +65,8 @@ const pairAbi = [
 const cakeBusdPairMap = {
   [ChainId.U2U_NEBULAS]: {
     address: SushiSwapV3Pool.getAddress(
-      CAKE[ChainId.U2U_NEBULAS],
+      // CAKE[ChainId.U2U_NEBULAS],
+      CAKE[ChainId.U2U_NEBULAS] as any,
       USDC[ChainId.U2U_NEBULAS],
       FeeAmount.LOW
     ),
@@ -97,58 +97,7 @@ const getCakePrice = async (isTestnet: boolean) => {
   return new Fraction(0, 0)
 }
 
-const farmConfigApi = 'https://farms-config.pages.dev'
-
-export async function saveFarms(chainId: number, event: ScheduledEvent | FetchEvent) {
-  try {
-    const isTestnet = farmFetcher.isTestnet(chainId)
-    const farmsConfig = await (await fetch(`${farmConfigApi}/${chainId}.json`)).json<SerializedFarmConfig[]>()
-    let lpPriceHelpers: SerializedFarmConfig[] = []
-    try {
-      lpPriceHelpers = await (
-        await fetch(`${farmConfigApi}/priceHelperLps/${chainId}.json`)
-      ).json<SerializedFarmConfig[]>()
-    } catch (error) {
-      console.error('Get LP price helpers error', error)
-    }
-
-    if (!farmsConfig) {
-      throw new Error(`Farms config not found ${chainId}`)
-    }
-    const { farmsWithPrice, poolLength, regularCakePerBlock } = await farmFetcher.fetchFarms({
-      chainId,
-      isTestnet,
-      farms: farmsConfig.filter((f) => f.pid !== 0).concat(lpPriceHelpers),
-    })
-
-    const cakeBusdPrice = await getCakePrice(isTestnet)
-    const lpAprs = await handleLpAprs(chainId, farmsConfig)
-
-    const finalFarm = farmsWithPrice.map((f: any) => {
-      return {
-        ...f,
-        lpApr: lpAprs?.[f.lpAddress.toLowerCase()] || 0,
-        cakeApr: getFarmCakeRewardApr(f, new BN(cakeBusdPrice.toSignificant(3)), regularCakePerBlock),
-      }
-    }) as FarmResult
-
-    const savedFarms = {
-      updatedAt: new Date().toISOString(),
-      poolLength,
-      regularCakePerBlock,
-      data: finalFarm,
-    }
-
-    event.waitUntil(FarmKV.saveFarms(chainId, savedFarms))
-
-    return savedFarms
-  } catch (error) {
-    console.error('[ERROR] fetching farms', error)
-    throw error
-  }
-}
-
-export async function handleLpAprs(chainId: number, farmsConfig?: SerializedFarmConfig[]) {
+export async function handleLpAprs(chainId: FarmSupportedChainId, farmsConfig?: SerializedFarmConfig[]) {
   let lpAprs = await FarmKV.getApr(chainId)
   if (!lpAprs) {
     lpAprs = await saveLPsAPR(chainId, farmsConfig)
@@ -156,9 +105,9 @@ export async function handleLpAprs(chainId: number, farmsConfig?: SerializedFarm
   return lpAprs || {}
 }
 
-export async function saveLPsAPR(chainId: number, farmsConfig?: SerializedFarmConfig[]) {
+export async function saveLPsAPR(chainId: FarmSupportedChainId, farmsConfig?: SerializedFarmConfig[]) {
   // TODO: add other chains
-  if (chainId === 56) {
+  if (chainId === 2484) {
     let data = farmsConfig
     if (!data) {
       const value = await FarmKV.getFarms(chainId)

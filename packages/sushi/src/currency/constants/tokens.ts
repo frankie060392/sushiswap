@@ -68,10 +68,15 @@ export const AMPL = addressMapToTokenMap(
   AMPL_ADDRESS,
 )
 
-export const CAKE = addressMapToTokenMap(
-  { decimals: 9, symbol: 'AMPL', name: 'Ampleforth' },
-  CAKE_ADDRESS
-)
+export const CAKE: Record<keyof typeof CAKE_ADDRESS, Token> =
+  addressMapToTokenMap(
+    {
+      decimals: 18,
+      symbol: 'CAKE',
+      name: 'CAKE',
+    },
+    CAKE_ADDRESS,
+  ) as Record<keyof typeof CAKE_ADDRESS, Token>
 
 export const MANA = addressMapToTokenMap(
   {

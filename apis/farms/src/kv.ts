@@ -1,4 +1,4 @@
-import { AprMap, FarmWithPrices } from '@pancakeswap/farms'
+import { AprMap } from '@sushiswap/farms'
 
 const KV_PREFIX = {
   lp: 'lp:',
@@ -8,7 +8,7 @@ const KV_PREFIX = {
   farmV3Liquidity: 'farmV3Liquidity:',
 }
 
-export type FarmResult = Array<FarmWithPrices & { cakeApr?: string; lpApr?: number }>
+export type FarmResult = Array<any & { cakeApr?: string; lpApr?: number }>
 
 export type FarmV3LiquidityResult = {
   tvl: {

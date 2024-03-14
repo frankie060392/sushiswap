@@ -4,7 +4,7 @@
 // import { tickToPrice } from '@pancakeswap/v3-sdk'
 import { Address, PublicClient, formatUnits } from 'viem'
 import BN from 'bignumber.js'
-import { BIG_ZERO } from 'sushi/config'
+import { ZERO as BIG_ZERO } from 'sushi'
 import chunk from 'lodash/chunk'
 
 import { DEFAULT_COMMON_PRICE, PriceHelper } from '../constants/common'
@@ -12,8 +12,9 @@ import { ComputedFarmConfigV3, FarmV3Data, FarmV3DataWithPrice } from './types'
 import { getFarmApr } from './apr'
 import { FarmV3SupportedChainId, supportedChainIdV3 } from './const'
 import { Currency, WNATIVE } from 'sushi/currency'
-import { ERC20Token, tickToPrice } from '@sushiswap/v3-sdk'
-import { ChainId, getLlamaChainName } from 'sushi/chain'
+import { tickToPrice } from '@sushiswap/v3-sdk'
+import { Token as ERC20Token } from 'sushi/currency'
+import { ChainId, DEFI_LLAMA_CHAIN_NAMES } from 'sushi/chain'
 
 const chainlinkAbi = [
   {
@@ -36,7 +37,7 @@ export async function farmV3FetchFarms({
   farms: ComputedFarmConfigV3[]
   provider: ({ chainId }: { chainId: number }) => PublicClient
   masterChefAddress: Address
-  chainId: number
+  chainId: any
   totalAllocPoint: bigint
   commonPrice: CommonPrice
 }) {
@@ -262,8 +263,8 @@ const getV3FarmsDynamicData = ({ token0, token1, tick }: { token0: ERC20Token; t
 }
 
 const getFarmAllocation = ({ allocPoint, totalAllocPoint }: { allocPoint?: bigint; totalAllocPoint?: bigint }) => {
-  const _allocPoint = typeof allocPoint !== 'undefined' ? new BN(allocPoint.toString()) : BIG_ZERO
-  const poolWeight = !!totalAllocPoint && !_allocPoint.isZero() ? _allocPoint.div(totalAllocPoint.toString()) : BIG_ZERO
+  const _allocPoint = typeof allocPoint !== 'undefined' ? new BN(allocPoint.toString()) : new BN(0)
+  const poolWeight = !!totalAllocPoint && !_allocPoint.isZero() ? _allocPoint.div(totalAllocPoint.toString()) : new BN(0)
 
   return {
     poolWeight: poolWeight.toString(),
@@ -440,13 +441,9 @@ export const fetchCommonTokenUSDValue = async (priceHelper?: PriceHelper): Promi
 
 export const fetchTokenUSDValues = async (currencies: Currency[] = []): Promise<CommonPrice> => {
   const commonTokenUSDValue: CommonPrice = {}
-  if (!supportedChainIdV3.includes(currencies[0]?.chainId)) {
-    return commonTokenUSDValue
-  }
-
   if (currencies.length > 0) {
     const list = currencies
-      .map((currency) => `${getLlamaChainName(currency.chainId)}:${currency.wrapped.address}`)
+      .map((currency) => `${DEFI_LLAMA_CHAIN_NAMES[currency.chainId]}:${currency.wrapped.address}`)
       .join(',')
     const result: { coins: { [key: string]: { price: string } } } = await fetch(
       `https://coins.llama.fi/prices/current/${list}`,
@@ -454,7 +451,7 @@ export const fetchTokenUSDValues = async (currencies: Currency[] = []): Promise<
 
     Object.entries(result.coins || {}).forEach(([key, value]) => {
       const [, address] = key.split(':')
-      commonTokenUSDValue[address] = value.price
+      commonTokenUSDValue[address!] = value.price
     })
   }
 
@@ -464,18 +461,18 @@ export const fetchTokenUSDValues = async (currencies: Currency[] = []): Promise<
 export function getFarmsPrices(
   farms: FarmV3Data[],
   cakePriceUSD: string,
-  commonPrice: CommonPrice,
+  commonPrice: any,
 ): FarmV3DataWithPrice[] {
   const commonPriceFarms = farms.map((farm) => {
-    let tokenPriceBusd = BIG_ZERO
-    let quoteTokenPriceBusd = BIG_ZERO
+    let tokenPriceBusd: any = new BN(0)
+    let quoteTokenPriceBusd: any = new BN(0)
 
     // try to get price via common price
     if (commonPrice[farm.quoteToken.address]) {
-      quoteTokenPriceBusd = new BN(commonPrice[farm.quoteToken.address])
+      quoteTokenPriceBusd = new BN(commonPrice[farm.quoteToken.address.toString()])
     }
     if (commonPrice[farm.token.address]) {
-      tokenPriceBusd = new BN(commonPrice[farm.token.address])
+      tokenPriceBusd = new BN(commonPrice[farm!.token!.address!])
     }
 
     // try price via CAKE

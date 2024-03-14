@@ -10,6 +10,7 @@ export * from './Native.js'
 export * from './Price.js'
 export * from './Share.js'
 export * from './Token.js'
+export * from './CurrencyAmount.js'
 export { type Type as Currency, type Type } from './Type.js'
 
 export * from './zod.js'

@@ -3,9 +3,6 @@ import uniq from 'lodash/uniq'
 
 export const supportedChainIdV2 = [ChainId.ETHEREUM] as const
 export const supportedChainIdV3 = [
-  // ChainId.BSC,
-  // ChainId.BSC_TESTNET,
-  // ChainId.ETHEREUM,
   ChainId.U2U_NEBULAS
 ] as const
 export const supportedChainId = uniq([...supportedChainIdV2, ...supportedChainIdV3])

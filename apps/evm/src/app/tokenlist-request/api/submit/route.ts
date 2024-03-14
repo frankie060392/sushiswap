@@ -177,9 +177,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const listPath = `tokens/${ChainKey[
-    chainId
-  ].toLowerCase()}.json`
+  const listPath: any = `tokens/u2u-nebulas.json`
 
   // Get current token list to append to
   let currentListData

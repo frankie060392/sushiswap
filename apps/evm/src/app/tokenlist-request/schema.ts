@@ -18,7 +18,7 @@ export const ApplyForTokenListTokenSchema = z.object({
   chainId: z.coerce
     .number()
     .transform((chainId) => chainId as ChainId)
-    .default(ChainId.ETHEREUM),
+    .default(ChainId.U2U_NEBULAS),
   listType: z
     .enum([
       ApplyForTokenListListType.DEFAULT,
@@ -26,7 +26,7 @@ export const ApplyForTokenListTokenSchema = z.object({
     ])
     .default(ApplyForTokenListListType.DEFAULT),
   logoFile: z.string(),
-})
+}) as any
 
 export type ApplyForTokenListTokenSchemaType = z.infer<
   typeof ApplyForTokenListTokenSchema

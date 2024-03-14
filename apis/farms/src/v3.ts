@@ -1,8 +1,7 @@
 /* eslint-disable no-param-reassign, no-await-in-loop */
 import { ChainId } from 'sushi/chain'
-import { ERC20Token } from '@pancakeswap/sdk'
-import { CurrencyAmount } from '@pancakeswap/swap-sdk-core'
-import { Position } from '@sushiswap/v3-sdk'
+import { Amount as CurrencyAmount, Token } from 'sushi/currency'
+import { PositionMath } from '@sushiswap/v3-sdk'
 import { GraphQLClient, gql } from 'graphql-request'
 import { Request } from 'itty-router'
 import { error, json } from 'itty-router-extras'
@@ -13,7 +12,6 @@ import {
 } from '@sushiswap/graph-config'
 import { FarmKV } from './kv'
 import { viemProviders } from './provider'
-import { Amount } from 'sushi/currency'
 
 export const V3_SUBGRAPH_CLIENTS_CHAIN_IDS = [
   ChainId.U2U_NEBULAS,
@@ -23,7 +21,7 @@ type SupportChainId = (typeof V3_SUBGRAPH_CLIENTS_CHAIN_IDS)[number]
 
 const V3_SUBGRAPHS = SUSHISWAP_V3_SUBGRAPH_NAME[ChainId.U2U_NEBULAS]
 
-export const V3_SUBGRAPH_CLIENTS = V3_SUBGRAPH_CLIENTS_CHAIN_IDS.reduce((acc, chainId) => {
+export const V3_SUBGRAPH_CLIENTS = V3_SUBGRAPH_CLIENTS_CHAIN_IDS.reduce((acc, chainId: number) => {
   acc[chainId] = new GraphQLClient(V3_SUBGRAPHS[chainId], { fetch })
   return acc
 })
@@ -114,42 +112,20 @@ const CACHE_TIME = {
 }
 
 // getting active "in-range" liquidity for a pool
-export const handler = async (req: Request, event: FetchEvent) => {
-  const cache = caches.default
-  const cacheResponse = await cache.match(event.request)
-
+export const handler = async (req: Request, event: any) => {
   let response: Response | undefined
-
-  if (!cacheResponse) {
-    response = await handler_(req, event)
-    if (response.status === 200) {
-      event.waitUntil(cache.put(event.request, response.clone()))
-    }
-  } else {
-    response = new Response(cacheResponse.body, cacheResponse)
-  }
-
+  response = await handler_(req, event)
   return response
 }
 
-const handler_ = async (req: Request, event: FetchEvent) => {
-  const parsed = zParams.safeParse(req.params)
-
-  if (parsed.success === false) {
-    return error(400, parsed.error)
-  }
-
-  const { chainId: chainIdString, address: address_ } = parsed.data
+const handler_ = async (req: any, event: any) => {
+  
+  const { chainId: chainIdString, address: address_ } = req.params
   const chainId = Number(chainIdString) as SupportChainId
 
   const address = address_.toLowerCase()
-
-  const MASTERCHEF_V3_ADDRESS = {
-    [ChainId.U2U_NEBULAS]: '0x8fC9F43677e6EbFCaC798eede292073c3319D6D9',
-  } as const
-
   
-  const masterChefV3Address = MASTERCHEF_V3_ADDRESS[chainId]
+  const masterChefV3Address = '0x8fC9F43677e6EbFCaC798eede292073c3319D6D9'
 
   const client = viemProviders({ chainId })
 
@@ -314,7 +290,7 @@ const handler_ = async (req: Request, event: FetchEvent) => {
 }
 
 async function fetchLiquidityFromSubgraph(
-  chainId: keyof typeof V3_SUBGRAPH_CLIENTS,
+  chainId: any,
   address: string,
   masterChefV3Address: string,
   tick: number,
@@ -405,33 +381,51 @@ async function fetchLiquidityFromSubgraph(
   const currentTick = tick
   const sqrtRatio = sqrtPriceX96
 
-  let totalToken0: Amount<any>
-  let totalToken1: Amount<any>
+  let totalToken0 = 0n
+  let totalToken1 = 0n
 
   for (const position of allActivePositions.filter(
     // double check that the position is within the current tick range
     (p) => +p.tickLower.tickIdx <= currentTick && +p.tickUpper.tickIdx > currentTick,
   )) {
-    const pos = new Position({
-      pool: poolTokens.pool,
-      tickLower: position.tickLower.tickIdx,
-      tickUpper: position.tickUpper.tickIdx,
-      liquidity: position.liquidity,
-    })
-
-    const token0 = pos.amount0
-
-    const token1 = pos.amount1
-    totalToken0 = totalToken0.add(token0)
-    totalToken1 = totalToken1.add(token1)
+    const token0 = PositionMath.getToken0Amount(
+      currentTick,
+      +position.tickLower.tickIdx,
+      +position.tickUpper.tickIdx,
+      sqrtRatio,
+      BigInt(position.liquidity),
+    )
+    
+    const token1 = PositionMath.getToken1Amount(
+      currentTick,
+      +position.tickLower.tickIdx,
+      +position.tickUpper.tickIdx,
+      sqrtRatio,
+      BigInt(position.liquidity),
+    )
+    totalToken0 += token0
+    totalToken1 += token1
   }
 
+  const token0Ins = new Token({
+    chainId: chainId,
+    address: poolTokens.pool.token0.id,
+    decimals: poolTokens.pool.token0.decimals,
+    symbol: '0'
+  })
   const curr0 = CurrencyAmount.fromRawAmount(
-    new ERC20Token(+chainId, poolTokens.pool.token0.id, +poolTokens.pool.token0.decimals, '0'),
-    totalToken0.toExact(),
+    token0Ins,
+    totalToken0.toString(),
   ).toExact()
+
+  const token1Ins = new Token({
+    chainId: chainId,
+    address: poolTokens.pool.token1.id,
+    decimals: poolTokens.pool.token1.decimals,
+    symbol: '1'
+  })
   const curr1 = CurrencyAmount.fromRawAmount(
-    new ERC20Token(+chainId, poolTokens.pool.token1.id, +poolTokens.pool.token1.decimals, '1'),
+    token1Ins,
     totalToken1.toString(),
   ).toExact()
 

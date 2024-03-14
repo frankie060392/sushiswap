@@ -1,5 +1,5 @@
 import BN from 'bignumber.js'
-import { parseNumberToFraction, formatFraction } from '@pancakeswap/utils/formatFractions'
+import { parseNumberToFraction, formatFraction } from '@sushiswap/v3-sdk'
 import { BigintIsh, ZERO } from 'sushi/math'
 
 type BigNumberish = BN | number | string

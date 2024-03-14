@@ -124,4 +124,9 @@ export const ChainKey = {
   [ChainId.SCROLL]: 'scroll',
   [ChainId.U2U_NEBULAS]: 'u2u-nebulas'
 } as const
-export type ChainKey = typeof ChainKey[keyof typeof ChainKey]
+export type ChainKey = any
+
+export const DEFI_LLAMA_CHAIN_NAMES = {
+  [ChainId.U2U_NEBULAS]: '',
+  [ChainId.ETHEREUM]: ''
+} as const

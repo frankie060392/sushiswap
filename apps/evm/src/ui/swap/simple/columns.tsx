@@ -24,7 +24,7 @@ export const TYPE_COLUMN = {
   id: 'type',
   header: 'TYPE',
   cell: (props: any) => (
-    <div className={(props.row.original.type === 'Swap' ? 'color-yellow' : props.row.original.type === 'Add' ? 'color-green' : props.row.original.type === 'Remove' ? 'color-red' : '')}>
+    <div className={(props.row.original.type === 'Swap' ? 'color-yellow' : props.row.original.type === 'Add' ? 'color-green' : props.row.original.type === 'Remove' ? 'color-red' : props.row.original.type === 'Buy' ? 'color-blue' : props.row.original.type === 'Sell' ? 'color-orange' : '')}>
       {props.row.original.type?.toUpperCase()}
     </div>
   ),

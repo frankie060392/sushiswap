@@ -10,7 +10,7 @@ import {
 
 export const Header: FC = () => {
   return (
-    <Container maxWidth="7xl" className="mx-auto">
+    <Container maxWidth="screen-3xl" className="mx-auto">
       <Navigation
         rightElement={<WagmiHeaderComponents chainIds={SUPPORTED_CHAIN_IDS} />}
       />

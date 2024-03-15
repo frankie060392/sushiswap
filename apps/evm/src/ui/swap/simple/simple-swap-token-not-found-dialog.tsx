@@ -139,7 +139,7 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                 <a
                   href="https://coinbrain.com/dictionary/honeypot-scam"
                   rel="noreferrer noopener"
-                  className="text-blue"
+                  className="text-primary hover:text-hover"
                 >
                   here
                 </a>{' '}
@@ -157,14 +157,14 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                     Token {tokenFrom?.token && tokenTo?.token ? '1' : ''}
                   </List.Label>
                   <List.Control>
-                    <p className="p-3 text-sm text-gray-900 dark:text-slate-50">
+                    <p className="p-3 text-sm color-main">
                       Could not retrieve token info for{' '}
                       <a
                         target="_blank"
                         href={Chain.from(chainId)?.getTokenUrl(
                           token0.wrapped.address,
                         )}
-                        className="text-blue font-medium"
+                        className="text-primary font-medium hover:text-hover"
                         rel="noreferrer"
                       >
                         {shortenAddress(token0.wrapped.address)}
@@ -180,14 +180,14 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                     Token {tokenFrom?.token && tokenTo?.token ? '2' : ''}
                   </List.Label>
                   <List.Control>
-                    <p className="p-3 text-sm text-gray-900 dark:text-slate-50">
+                    <p className="p-3 text-sm color-main">
                       Could not retrieve token info for{' '}
                       <a
                         target="_blank"
                         href={Chain.from(chainId)?.getTokenUrl(
                           token1.wrapped.address,
                         )}
-                        className="text-blue font-medium"
+                        className="text-primary font-medium hover:text-hover"
                         rel="noreferrer"
                       >
                         {shortenAddress(token1.wrapped.address)}
@@ -206,7 +206,7 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                     <List.KeyValue title="Name">
                       {tokenFrom.token.name}
                     </List.KeyValue>
-                    <List.KeyValue title="Symbol">
+                    <List.KeyValue title="Symbol" className='!py-1'>
                       {tokenFrom.token.symbol}
                     </List.KeyValue>
                     <List.KeyValue title="Address">
@@ -215,7 +215,7 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                         href={Chain.from(chainId)?.getTokenUrl(
                           tokenFrom.token.address,
                         )}
-                        className="text-blue"
+                        className="text-primary hover:text-hover"
                         rel="noreferrer"
                       >
                         {shortenAddress(tokenFrom.token.address)}
@@ -233,7 +233,7 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                     <List.KeyValue title="Name">
                       {tokenTo.token.name}
                     </List.KeyValue>
-                    <List.KeyValue title="Symbol">
+                    <List.KeyValue title="Symbol" className='!py-1'>
                       {tokenTo.token.symbol}
                     </List.KeyValue>
                     <List.KeyValue title="Address">
@@ -242,7 +242,7 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                         href={Chain.from(chainId)?.getTokenUrl(
                           tokenTo.token.address,
                         )}
-                        className="text-blue"
+                        className="text-primary hover:text-hover"
                         rel="noreferrer"
                       >
                         {shortenAddress(tokenTo.token.address)}
@@ -254,7 +254,7 @@ export const SimpleSwapTokenNotFoundDialog = () => {
 
               {tokenSecurity?.isSupported && (
                 <div className="flex items-center gap-0.5 justify-center mt-4">
-                  <span className="text-xs text-gray-700 dark:text-slate-400">
+                  <span className="text-xs color-base">
                     Honeypot detection powered by GoPlus
                   </span>
                   <GoPlusLabsIcon width={22} height={20} />
@@ -278,7 +278,7 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                       <List.KeyValue title="Name">
                         {tokenFrom.token.name}
                       </List.KeyValue>
-                      <List.KeyValue title="Symbol">
+                      <List.KeyValue title="Symbol" className='!py-1'>
                         {tokenFrom.token.symbol}
                       </List.KeyValue>
                       <List.KeyValue title="Address">
@@ -287,7 +287,7 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                           href={Chain.from(chainId)?.getTokenUrl(
                             tokenFrom.token.address,
                           )}
-                          className="text-blue"
+                          className="text-primary hover:text-hover"
                           rel="noreferrer"
                         >
                           {shortenAddress(tokenFrom.token.address)}
@@ -312,7 +312,7 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                           ? `${tokenTo.token.name} (SCAM)`
                           : null}
                       </List.KeyValue>
-                      <List.KeyValue title="Symbol">
+                      <List.KeyValue title="Symbol" className='!py-1'>
                         {tokenTo.token.symbol
                           ? `${tokenTo.token.symbol} (SCAM)`
                           : null}
@@ -323,7 +323,7 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                           href={Chain.from(chainId)?.getTokenUrl(
                             tokenTo.token.address,
                           )}
-                          className="text-blue"
+                          className="text-primary hover:text-hover"
                           rel="noreferrer"
                         >
                           {shortenAddress(tokenTo.token.address)}
@@ -334,7 +334,7 @@ export const SimpleSwapTokenNotFoundDialog = () => {
                 )}
               {tokenSecurity.isSupported && (
                 <div className="flex items-center gap-0.5 justify-center">
-                  <span className="text-xs text-gray-700 dark:text-slate-400">
+                  <span className="text-xs color-base">
                     Honeypot detection powered by GoPlus
                   </span>
                   <GoPlusLabsIcon width={22} height={20} />
@@ -350,17 +350,18 @@ export const SimpleSwapTokenNotFoundDialog = () => {
               <Button
                 fullWidth
                 size="xl"
+                variant="border"
                 onClick={() => onImport([tokenFrom?.token, tokenTo?.token])}
               >
                 I understand
               </Button>
             ) : (
-              <Button fullWidth size="xl" onClick={reset}>
+              <Button variant="border" fullWidth size="xl" onClick={reset}>
                 Close
               </Button>
             )
           ) : (
-            <Button fullWidth size="xl" onClick={reset}>
+            <Button variant="border" fullWidth size="xl" onClick={reset}>
               Close
             </Button>
           )}

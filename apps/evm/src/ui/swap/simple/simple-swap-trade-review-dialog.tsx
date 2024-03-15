@@ -533,6 +533,7 @@ export const SimpleSwapTradeReviewDialog: FC<{
                         ? 'red'
                         : 'blue'
                     }
+                    variant="border"
                     testId="confirm-swap"
                   >
                     {isError

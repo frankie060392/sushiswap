@@ -11,7 +11,7 @@ export const metadata = {
 export default function SwapSimplePage() {
   return (
     <Providers>
-      <Container maxWidth="screen-2xl" className='px-4'>
+      <Container maxWidth="screen-3xl" className='px-4'>
         <div className='xl:grid xl:grid-cols-3 xl:grid-rows-1 xl:gap-10'>
           <div className='xl:order-2 mb-10 xl:mb-0'>
             <SimpleSwapWidget/>

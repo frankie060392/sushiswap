@@ -9,7 +9,7 @@ function SkeletonBox(props: React.HTMLAttributes<HTMLDivElement>) {
       {...props}
       className={classNames(
         props.className,
-        'rounded-lg overflow-hidden animate-pulse bg-black/[0.10] dark:bg-white/[0.10]',
+        'rounded-lg overflow-hidden animate-pulse background-item',
       )}
     />
   )
@@ -32,7 +32,7 @@ function SkeletonCircle(props: CircleProps) {
       }}
       className={classNames(
         props.className,
-        'rounded-full overflow-hidden animate-pulse bg-black/[0.10] dark:bg-white/[0.10]',
+        'rounded-full overflow-hidden animate-pulse background-item',
       )}
     />
   )
@@ -79,7 +79,7 @@ function SkeletonText({
       <div
         className={classNames(
           className,
-          'flex w-full h-full rounded-md overflow-hidden animate-pulse bg-black/[0.10] dark:bg-white/[0.10]',
+          'flex w-full h-full rounded-md overflow-hidden animate-pulse background-item',
         )}
       />
     </div>

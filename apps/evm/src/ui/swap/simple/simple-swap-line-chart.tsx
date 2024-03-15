@@ -165,41 +165,41 @@ export const SimpleSwapLineChart: FC<ISimpleSwapLineChart> = ({
     [onMouseOver, xData, yData],
   )
   return (
-    <div>
-    <CardHeader className="border-t border-accent">
-      <CardTitle>
-        {yData?.length ? (
-          <span className="hoveredItemValue">
-            {yData[yData.length - 1]}
-          </span>
-        ) : (
-          <SkeletonText fontSize="sm" />
-        )}
-      </CardTitle>
-      <CardDescription>
-        {xData?.length ? (
-          <div className="text-sm text-gray-500 dark:text-slate-500 hoveredItemName">
-            {format(
-              new Date(xData[xData.length - 1]),
-              'dd MMM yyyy HH:mm',
-            )}
-          </div>
-        ) : (
-          <SkeletonText fontSize="sm" />
-        )}
-      </CardDescription>
-    </CardHeader>
-    <div className="h-[100%] pb-2">
-      {xData ? (
-        <ReactECharts option={DEFAULT_OPTION} style={{ height: '400px' }} />
-      ) : (
-        <SkeletonBox
-          className={classNames(
-            'h-[400px] w-full dark:via-slate-800 dark:to-slate-900',
+    <div className="flex flex-col	h-full">
+      <CardHeader className="border-t border-accent">
+        <CardTitle>
+          {yData?.length ? (
+            <span className="hoveredItemValue">
+              {yData[yData.length - 1]}
+            </span>
+          ) : (
+            <SkeletonText fontSize="sm" />
           )}
-        />
-      )}
-    </div>
+        </CardTitle>
+        <CardDescription>
+          {xData?.length ? (
+            <div className="text-sm text-gray-500 dark:text-slate-500 hoveredItemName">
+              {format(
+                new Date(xData[xData.length - 1]),
+                'dd MMM yyyy HH:mm',
+              )}
+            </div>
+          ) : (
+            <SkeletonText fontSize="sm" />
+          )}
+        </CardDescription>
+      </CardHeader>
+      <div className="h-[100%] pb-2">
+        {xData ? (
+          <ReactECharts option={DEFAULT_OPTION} style={{ height: '100%' }} />
+        ) : (
+          <SkeletonBox
+            className={classNames(
+              'h-full w-full dark:via-slate-800 dark:to-slate-900',
+            )}
+          />
+        )}
+      </div>
     </div>
   )
 }

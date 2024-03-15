@@ -50,7 +50,9 @@
     --color-base: #9f9f9f;
     --color-yellow:#ffe500;
     --color-green: #00e778;
-    --color-red: #fb8d75;
+    --color-red: #f0350c;
+    --color-blue: #1caaf9;
+    --color-orange: #ff5c00;
     --color-placeholder: var(--color-base);
   }
 
@@ -74,7 +76,9 @@
     --color-base: #9f9f9f;
     --color-yellow:#ffe500;
     --color-green: #00e778;
-    --color-red: #fb8d75;
+    --color-red: #f0350c;
+    --color-blue: #1caaf9;
+    --color-orange: #ff5c00;
     --color-placeholder: var(--color-base);
   }
 
@@ -116,6 +120,12 @@
   }
   .color-green {
     color: var(--color-green);
+  }
+  .color-blue {
+    color: var(--color-blue);
+  }
+  .color-orange {
+    color: var(--color-orange);
   }
 }
 

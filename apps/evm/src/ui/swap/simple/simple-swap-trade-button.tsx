@@ -110,6 +110,7 @@ export const _SimpleSwapTradeButton: FC<{
                         }
                         fullWidth
                         testId="swap"
+                        variant="border"
                       >
                         {!checked && warningSeverity(trade?.priceImpact) >= 3
                           ? 'Price impact too high'

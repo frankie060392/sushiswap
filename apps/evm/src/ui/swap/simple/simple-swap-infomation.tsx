@@ -2,7 +2,7 @@
 
 import React, { FC, useState } from 'react'
 import { SimpleSwapTransaction } from './simple-swap-transaction'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Tabs, TabsContent, TabsList, TabsTrigger } from '@sushiswap/ui';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch, Tabs, TabsContent, TabsList, TabsTrigger } from '@sushiswap/ui';
 import { InformationCircleIcon } from '@heroicons/react/20/solid';
 // import { SimpleSwapLiquidity } from './simple-swap-liquidity';
 
@@ -114,6 +114,23 @@ export const SimpleSwapInfomation = () => {
           </TabsList>
         </div>
         <TabsContent value='transactions'>
+          {/* <div className='flex items-center justify-between mb-4'>
+            <div className='flex items-center'>
+              <div className='rounded-lg border-2 border-transparent color-base filter-chart-active text-sm px-6 py-1 cursor-pointer hover:text-hover transaction-colors'>All</div>
+              <div className='rounded-lg border-2 border-transparent color-base text-sm px-6 py-1 cursor-pointer hover:text-hover transaction-colors'>Swap</div>
+              <div className='rounded-lg border-2 border-transparent color-base text-sm px-6 py-1 cursor-pointer hover:text-hover transaction-colors'>Add</div>
+              <div className='rounded-lg border-2 border-transparent color-base text-sm px-6 py-1 cursor-pointer hover:text-hover transaction-colors'>Remote</div>
+            </div>
+            <div className='flex items-center'>
+            <Switch
+                checked={true}
+                // onCheckedChange={(checked) =>
+                //   setSlippageTolerance(checked ? 'AUTO' : '0.5')
+                // }
+              />
+              <span className='color-base ml-4'>Only my transactions</span>
+            </div>
+          </div> */}
           <SimpleSwapTransaction/>
         </TabsContent>
         <TabsContent value='liquidity'>

@@ -186,7 +186,7 @@ export const SimpleSwapChartContainer: FC = ()=> {
             { typeChart === TYPE_CHART.CANDLE && 
               <Button
                 size="sm"
-                className="!rounded-full hover:!text-hover focus:!text-hover hover:border-hover focus:border-hover color-base dark:bg-transparent bg-transparent border-color-base border-2 w-9 h-9 px-[0px] ml-2 mr-2"
+                className="!rounded-full hover:!text-hover focus:!text-hover hover:border-hover focus:border-hover color-base dark:bg-transparent bg-transparent hover:bg-transparent focus:bg-transparent border-color-base border-2 w-9 h-9 px-[0px] ml-2 mr-2"
                 variant="secondary"
                 onClick={()=> handleExecuteAction('chartProperties')}
               >

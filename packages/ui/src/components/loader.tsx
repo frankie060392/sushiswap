@@ -41,7 +41,7 @@ export const Loader: FC<LoaderProps> = ({
         strokeWidth={strokeWidth}
         className={classNames(
           circleClassName,
-          'text-gray-400 dark:text-white/[0.12]',
+          'color-base',
         )}
       />
       <path
@@ -49,7 +49,7 @@ export const Loader: FC<LoaderProps> = ({
         stroke="currentColor"
         strokeWidth={strokeWidth}
         strokeLinecap="round"
-        className={classNames(className, 'text-gray-700 dark:text-white')}
+        className={classNames(className, 'color-main')}
       />
     </svg>
   )

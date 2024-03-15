@@ -268,7 +268,7 @@ const DialogConfirm: FC<DialogConfirmProps> = ({
                 <a
                   target="_blank"
                   href={txHash ? Chain.from(chainId)?.getTxUrl(txHash) : ''}
-                  className="cursor-pointer text-blue hover:underline"
+                  className="cursor-pointer text-primary hover:text-hover hover:underline"
                   rel="noreferrer"
                 >
                   transaction
@@ -279,7 +279,7 @@ const DialogConfirm: FC<DialogConfirmProps> = ({
               <a
                 target="_blank"
                 href={txHash ? Chain.from(chainId)?.getTxUrl(txHash) : ''}
-                className="cursor-pointer text-blue hover:underline"
+                className="cursor-pointer text-primary hover:text-hover hover:underline"
                 rel="noreferrer"
               >
                 {successMessage}
@@ -288,7 +288,7 @@ const DialogConfirm: FC<DialogConfirmProps> = ({
               <a
                 target="_blank"
                 href={txHash ? Chain.from(chainId)?.getTxUrl(txHash) : ''}
-                className="cursor-pointer text-blue hover:underline"
+                className="cursor-pointer text-primary hover:text-hover hover:underline"
                 rel="noreferrer"
               >
                 Something went wrong...
@@ -297,7 +297,7 @@ const DialogConfirm: FC<DialogConfirmProps> = ({
           </DialogDescription>
           <div className="py-6 flex justify-center">
             {status === 'loading' ? (
-              <Loader size={132} strokeWidth={1} className="!text-blue" />
+              <Loader size={132} strokeWidth={1} className="!text-hover" />
             ) : status === 'success' ? (
               <CheckMarkIcon width={132} height={132} />
             ) : (
@@ -311,6 +311,7 @@ const DialogConfirm: FC<DialogConfirmProps> = ({
                 asChild={!!buttonLink}
                 fullWidth
                 size="xl"
+                variant="border"
               >
                 {buttonLink ? (
                   <LinkInternal href={buttonLink}>{buttonText}</LinkInternal>

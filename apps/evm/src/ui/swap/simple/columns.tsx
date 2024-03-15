@@ -25,7 +25,7 @@ export const TYPE_COLUMN = {
   header: 'TYPE',
   cell: (props: any) => (
     <div className={(props.row.original.type === 'Swap' ? 'color-yellow' : props.row.original.type === 'Add' ? 'color-green' : props.row.original.type === 'Remove' ? 'color-red' : '')}>
-      {props.row.original.type}
+      {props.row.original.type?.toUpperCase()}
     </div>
   ),
   meta: {
@@ -33,31 +33,31 @@ export const TYPE_COLUMN = {
   }
 }
 
-export const AMOUNT_IN_COLUMN = (symbol: string | undefined) => ({
+export const AMOUNT_IN_COLUMN = {
   id: 'amountIn',
   header: 'Amount In',
   cell: (props: any) => (
     <div className="whitespace-nowrap">
-      {props.row.original.amountIn} {symbol}
+      {props.row.original.amountIn}
     </div>
   ),
   meta: {
     skeleton: <SkeletonText fontSize="lg" />
   }
-})
+}
 
-export const AMOUNT_OUT_COLUMN =  (symbol: string | undefined) =>({
+export const AMOUNT_OUT_COLUMN = {
   id: 'amountOut',
   header: 'Amount Out',
   cell: (props: any) => (
     <div className="whitespace-nowrap">
-      {props.row.original.amountOut} {symbol}
+      {props.row.original.amountOut}
     </div>
   ),
   meta: {
     skeleton: <SkeletonText fontSize="lg" />
   }
-})
+}
 
 export const PRICE_COLUMN = (pair: string) => ({
   id: 'price',

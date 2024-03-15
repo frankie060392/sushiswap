@@ -96,7 +96,7 @@ export const getTokenWithCacheQueryFn = async ({
   }
 
   // Try fetching from API
-  const resp = await fetch(`https://tokens.u2w.io/v0/${chainId}/${address}`)
+  const resp = await fetch(`https://tokens.u2dex.io/v0/${chainId}/${address}`)
   if (resp.status === 200) {
     const { address, name, symbol, decimals, status, id }: Data =
       await resp.json()

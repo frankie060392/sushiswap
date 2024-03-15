@@ -61,7 +61,7 @@ interface PoolCode {
 
 async function fetchTokens(chainId: ExtractorSupportedChainId) {
   try {
-    const result = await fetch(`https://tokens.u2w.io/v1/${chainId}`, {
+    const result = await fetch(`https://tokens.u2dex.io/v1/${chainId}`, {
       next: { revalidate: 3600 },
     })
     const tokenList = (await result.json()) as TokenInfo[]
@@ -75,7 +75,7 @@ async function fetchTokens(chainId: ExtractorSupportedChainId) {
 async function fetchToken(chainId: ExtractorSupportedChainId, address: string) {
   try {
     const result = await fetch(
-      `https://tokens.u2w.io/v1/${chainId}/${address}`,
+      `https://tokens.u2dex.io/v1/${chainId}/${address}`,
       { next: { revalidate: 3600 } },
     )
     const tokenList = (await result.json()) as TokenInfo | undefined
@@ -88,7 +88,7 @@ async function fetchToken(chainId: ExtractorSupportedChainId, address: string) {
 
 async function fetchPoolCodes(chainId: number, address?: string) {
   try {
-    const url = new URL('https://extractor-api.u2w.io/pool-codes')
+    const url = new URL('https://extractor-api.u2dex.io/pool-codes')
     url.searchParams.set('chainId', chainId.toString())
     if (address) {
       url.searchParams.set('address', address)
@@ -105,7 +105,7 @@ async function fetchPoolCodes(chainId: number, address?: string) {
 async function fetchPoolCodesForToken(chainId: number, address: string) {
   try {
     const response = await fetch(
-      `https://extractor-api.u2w.io/pool-codes-for-token?chainId=${chainId}&address=${address}`,
+      `https://extractor-api.u2dex.io/pool-codes-for-token?chainId=${chainId}&address=${address}`,
     )
     const json = await response.json()
     return json as PoolCode[]

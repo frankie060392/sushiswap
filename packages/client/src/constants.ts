@@ -12,8 +12,8 @@ export const TOKEN_PRICE_API =
 export const TOKENS_API =
   process.env['TOKENS_API_V0_BASE_URL'] ||
   process.env['NEXT_PUBLIC_TOKENS_API_V0_BASE_URL'] ||
-  'https://tokens.u2w.io'
+  'https://tokens.u2dex.io'
 
 export const SWAP_TRANSACTION_API =
   process.env['NEXT_PUBLIC_SWAP_TRANSACTION'] ||
-  'https://txs.u2w.io/api/v1'
+  'https://txs.u2dex.io/api/v1'

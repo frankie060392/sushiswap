@@ -24,7 +24,7 @@ export const useTokenSearch = ({
     queryKey: ['tokenSearch', { address }],
     queryFn: async () => {
       const data: Data = await fetch(
-        `https://tokens.u2w.io/v0/search/${address}`,
+        `https://tokens.u2dex.io/v0/search/${address}`,
       ).then((response) => response.json())
       return data.reduce<Record<string, { token: Token; official: boolean }>>(
         (acc, { id, name, symbol, decimals, status }) => {

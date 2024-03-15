@@ -16,7 +16,7 @@ type Data = {
 }
 
 export const fetchTokensQueryFn = async (chainId: number) => {
-  const resp = await fetch(`https://tokens.u2w.io/v0?chainId=${chainId}`)
+  const resp = await fetch(`https://tokens.u2dex.io/v0?chainId=${chainId}`)
   if (resp.status === 200) {
     const data: Data[] = await resp.json() 
     

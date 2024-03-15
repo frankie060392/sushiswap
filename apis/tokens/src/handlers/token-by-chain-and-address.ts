@@ -8,7 +8,7 @@ const handler = async (request: any, response: any) => {
 
   const { chainId, address } = request.params
 
-  const result = await fetch(`https://tokens.u2w.io/v1/${chainId}/`)
+  const result = await fetch(`https://tokens.u2dex.io/v1/${chainId}/`)
   const tokenList = (await result.json()) as TokenInfo[]
   const json = tokenList.find(
     (t) => t.address.toLowerCase() === address.toLowerCase(),

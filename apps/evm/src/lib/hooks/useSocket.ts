@@ -52,7 +52,7 @@ export const useSocket = () => {
     clearSocket()
     if(isConnected) return
     return new Promise((resolve) => {
-      _socket = new WebSocket('wss://w.u2w.io/m')
+      _socket = new WebSocket('wss://w.u2dex.io/m')
       _socket.onopen = () => {
         isConnected = true
         socketClosed = false

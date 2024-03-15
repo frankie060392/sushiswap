@@ -63,7 +63,7 @@ async function fetchTokens(chainId: ExtractorSupportedChainId) {
   const result = await fetch(
     `https://tokens-git-feature-token-v2-api.sushi.com/api/v1/${chainId}/`,
   )
-  // const result = await fetch(`https://tokens.u2w.io/v1/${chainId}/`)
+  // const result = await fetch(`https://tokens.u2dex.io/v1/${chainId}/`)
   const tokenList = (await result.json()) as TokenInfo[]
   return tokenList
 }
@@ -71,7 +71,7 @@ async function fetchTokens(chainId: ExtractorSupportedChainId) {
 async function fetchToken(chainId: ExtractorSupportedChainId, address: string) {
   const result = await fetch(
     `https://tokens-git-feature-token-v2-api.sushi.com/api/v1/${chainId}/${address}`,
-    // `https://tokens.u2w.io/v1/${chainId}/${address}`,
+    // `https://tokens.u2dex.io/v1/${chainId}/${address}`,
   )
   const tokenList = (await result.json()) as TokenInfo | undefined
   return tokenList

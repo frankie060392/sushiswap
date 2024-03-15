@@ -22,7 +22,7 @@
 //   // const result = await fetch(
 //   //   `https://tokens-git-feature-token-v2-api.sushi.com/api/v1/${chainId}/`,
 //   // )
-//   const result = await fetch(`https://tokens.u2w.io/v1/${chainId}/`)
+//   const result = await fetch(`https://tokens.u2dex.io/v1/${chainId}/`)
 //   const tokenList = (await result.json()) as TokenInfo[]
 //   const json = tokenList.find(
 //     (t) => t.address.toLowerCase() === address.toLowerCase(),

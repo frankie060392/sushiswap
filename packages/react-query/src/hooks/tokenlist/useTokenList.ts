@@ -8,9 +8,9 @@ import { tokenListValidator } from './validator'
 
 export const useTokenListQuery = (select: UseTokenListQuerySelect) =>
   useQuery({
-    queryKey: ['https://tokens.u2w.io/v0'],
+    queryKey: ['https://tokens.u2dex.io/v0'],
     queryFn: async () => {
-      const res = await (await fetch('https://tokens.u2w.io/v0')).json()
+      const res = await (await fetch('https://tokens.u2dex.io/v0')).json()
       return tokenListValidator.parse(res)
     },
     select,

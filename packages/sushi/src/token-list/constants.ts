@@ -2,7 +2,7 @@ export const BA_LIST =
   'https://raw.githubusercontent.com/The-Blockchain-Association/sec-notice-list/master/ba-sec-list.json'
 
 export const UNSUPPORTED_TOKEN_LIST_URLS: string[] = [BA_LIST]
-export const U2U_DEFAULT_TOKEN_LIST = 'https://token-list.u2w.io'
+export const U2U_DEFAULT_TOKEN_LIST = 'https://token-list.u2dex.io'
 export const SUSHI_DEFAULT_TOKEN_LIST = 'https://token-list.sushi.com'
 export const SUSHI_CHAINLINK_TOKEN_LIST =
   'https://token-list.sushi.com/chainlink'
